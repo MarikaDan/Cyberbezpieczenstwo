@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WlB5nx5rxMTAmgw75Zfgy7g71njKJGiK1nJJKzUBQ1SEuAZukUuI8tvt55/dLVyKetTHyBxu0ibIb17IjR/CJA==",
+  "dgSpecHash": "wDUJAd7erPUxVIedij+xb+UPsBLe/UjdBHXyO24D9qr3ltKhXy6192Qm1VP9JaLXCom2NJrRx+8ohW8eIe4ukA==",
   "success": true,
-  "projectFilePath": "C:\\cyb\\Lab2\\Lab2\\Lab2.csproj",
+  "projectFilePath": "C:\\Users\\asus\\Documents\\GitHub\\Cyberbezpieczenstwo\\Lab2\\Lab2\\Lab2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\asus\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\asus\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
