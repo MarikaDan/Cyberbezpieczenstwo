@@ -1,4 +1,5 @@
-﻿@inject SignInManager<User> SignInManager
+﻿@using Lab2.Models
+@inject SignInManager<User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

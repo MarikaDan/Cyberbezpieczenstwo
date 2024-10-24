@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wDUJAd7erPUxVIedij+xb+UPsBLe/UjdBHXyO24D9qr3ltKhXy6192Qm1VP9JaLXCom2NJrRx+8ohW8eIe4ukA==",
+  "dgSpecHash": "pCrGFa4JJwh+cVfEO8RtsifAldntKb3VdakbGvMb+5tEgGpTK/3COvHYz1qX6kTV2bxj4emPmNT3kMYW89ed8g==",
   "success": true,
   "projectFilePath": "C:\\Users\\asus\\Documents\\GitHub\\Cyberbezpieczenstwo\\Lab2\\Lab2\\Lab2.csproj",
   "expectedPackageFiles": [
@@ -94,6 +94,7 @@
     "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.10\\microsoft.entityframeworkcore.abstractions.8.0.10.nupkg.sha512",
     "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.10\\microsoft.entityframeworkcore.analyzers.8.0.10.nupkg.sha512",
     "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.10\\microsoft.entityframeworkcore.design.8.0.10.nupkg.sha512",
+    "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\8.0.10\\microsoft.entityframeworkcore.inmemory.8.0.10.nupkg.sha512",
     "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.10\\microsoft.entityframeworkcore.relational.8.0.10.nupkg.sha512",
     "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\8.0.10\\microsoft.entityframeworkcore.sqlite.8.0.10.nupkg.sha512",
     "C:\\Users\\asus\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\8.0.10\\microsoft.entityframeworkcore.sqlite.core.8.0.10.nupkg.sha512",

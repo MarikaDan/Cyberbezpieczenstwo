@@ -14,23 +14,32 @@ namespace Lab2.Models
 
         }
 
-        public override async Task<IdentityResult>ChangePasswordAsync(string userId, string currentPassword, string newPasword)
+        public override async Task<IdentityResult> ChangePasswordAsync(User user, string token, string newPasword)
         {
-            if(await IsPreviousPassword(userId, newPasword))
+            if (IsPreviousPassword(user, newPasword))
             {
-                return await Task.FromResult(IdentityResult.Failed("Nie mozna zmienic hasla");
+                return await Task.FromResult(IdentityResult.Failed(new IdentityError { Description = "Nie mozna zmienic hasla" }));
             }
-            var result = await base.ChangePasswordAsync(userId, currentPassword, newPasword);
-            if (result.Succeeded)
-            {
-                var store = Store as UserStore;
-                await store.AddToPreviousPasswordAsync(await FindByIdAsync(userId), PasswordHasher.HashPassword(newPassword));
-            }
-            return result;
+            return await base.ChangePasswordAsync(user, token, newPasword);
         }
-        public override async Task <IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword)
+        public override async Task<IdentityResult> ResetPasswordAsync(User user, string token, string newPassword)
         {
-            if(await IsPrevious)
+            //if(await IsPrevious)
+
+            return await base.ResetPasswordAsync(user, token, newPassword);
+        }
+
+        public static bool IsPreviousPassword(User user, string newPassword)
+        {
+            var passwordHasher = new PasswordHasher<User>();
+
+            return user.PreviousUserPasswords
+                .Distinct()
+                .Any(existingPassword =>
+                {
+                    var result = passwordHasher.VerifyHashedPassword(user, existingPassword, newPassword);
+                    return result == PasswordVerificationResult.Success;
+                });
         }
     }
 }

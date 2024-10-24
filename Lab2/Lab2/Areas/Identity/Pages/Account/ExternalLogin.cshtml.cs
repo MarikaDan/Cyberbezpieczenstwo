@@ -150,7 +150,7 @@ namespace Lab2.Areas.Identity.Pages.Account
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            if (ModelState.IsValid)
+/*            if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
@@ -191,7 +191,7 @@ namespace Lab2.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }
+            }*/
 
             ProviderDisplayName = info.ProviderDisplayName;
             ReturnUrl = returnUrl;
