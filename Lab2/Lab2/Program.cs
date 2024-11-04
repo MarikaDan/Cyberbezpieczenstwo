@@ -1,3 +1,4 @@
+using Lab2;
 using Lab2.Data;
 using Lab2.Models;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +24,7 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -43,5 +45,16 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager>();
+
+    roleManager.EnsureRolesCreated().Wait();
+    userManager.EnsureAdminCreated().Wait();
+
+}
+
 
 app.Run();
