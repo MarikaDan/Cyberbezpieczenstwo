@@ -23,6 +23,9 @@ namespace Lab2.Models
                LastPasswordChange = DateTime.Now;
             }
         }
-    }
+
+        public int PasswordValidForDays { get; set; }
+
+	}
 
 }

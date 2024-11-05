@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Lab2.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers;
+@inject UserManager UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var isAdmin = user is not null && await UserManager.IsInRoleAsync(user, "Admin");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,8 +24,12 @@
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Lab2</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>   
                 </button>
+                @if (!isAdmin)
+                {
+                    <a class="nav-link text-dark" asp-page="/Admin">See Admin Dashboard</a>
+                }
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
