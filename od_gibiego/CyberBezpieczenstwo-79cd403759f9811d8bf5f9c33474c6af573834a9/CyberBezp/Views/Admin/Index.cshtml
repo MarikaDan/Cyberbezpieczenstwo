@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@{
+	ViewData["Title"] = "Admin Page";
+}
+
+<div class="row">
+	<a asp-action="AddUser">Add new user</a>
+	<a asp-action="ConfigurePassword">Configure Password Requirements</a>
+
+	<div class="col-md-12">
+		<section>
+			<h2>Users</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							Email
+						</th>
+						<th>
+							Roles
+						</th>
+						<th>
+							Lockout Status
+						</th>
+						<th>
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in UserManager.Users)
+					{
+						<tr>
+							<td>
+								@user.Email
+							</td>
+							<td>
+								@string.Join(", ", await UserManager.GetRolesAsync(user))
+							</td>
+							<td>
+								@(user.LockoutEnd.HasValue && user.LockoutEnd > DateTimeOffset.Now ? "Locked" : "Active")
+							</td>
+							<td>
+								<!--Only for non ADMIN users-->
+								@if (user.UserName != "ADMIN")
+								{
+									@if (user.LockoutEnd.HasValue && user.LockoutEnd > DateTimeOffset.Now)
+									{
+										<form asp-action="UnlockUser" method="post">
+											<input type="hidden" name="userId" value="@user.Id" />
+											<button type="submit" class="btn btn-success">Unlock</button>
+										</form>
+									}
+									else
+									{
+										<form asp-action="LockUser" method="post">
+											<input type="hidden" name="userId" value="@user.Id" />
+											<button type="submit" class="btn btn-warning">Lock</button>
+										</form>
+									}
+
+								}
+
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</section>
+	</div>
+</div>
