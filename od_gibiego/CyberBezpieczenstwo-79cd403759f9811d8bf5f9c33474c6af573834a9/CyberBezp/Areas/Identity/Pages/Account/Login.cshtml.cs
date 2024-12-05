@@ -14,24 +14,31 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using CyberBezp.Services;
 
 namespace CyberBezp.Areas.Identity.Pages.Account
 {
 	public class LoginModel : PageModel
 	{
-		private readonly SignInManager<IdentityUser> _signInManager;
+		private readonly ApplicationSignInManager _signInManager;
 		private readonly ILogger<LoginModel> _logger;
+		private readonly ISystemLogger _systemLogger;
 
-		public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+		public LoginModel(ApplicationSignInManager signInManager, ILogger<LoginModel> logger, ISystemLogger systemLogger)
 		{
 			_signInManager = signInManager;
 			_logger = logger;
+			_systemLogger = systemLogger;
 		}
 
-		/// <summary>
-		///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-		///     directly from your code. This API may change or be removed in future releases.
-		/// </summary>
+        /// <summary>
+        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
+        /// 
+        [BindProperty]
+        public int SecurityFunctionArgument { get; set; }
+        
 		[BindProperty]
 		public InputModel Input { get; set; }
 
@@ -60,11 +67,17 @@ namespace CyberBezp.Areas.Identity.Pages.Account
 		/// </summary>
 		public class InputModel
 		{
-			/// <summary>
-			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-			///     directly from your code. This API may change or be removed in future releases.
-			/// </summary>
-			[Required]
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            /// 
+            [HiddenInput]
+            public int SecurityFunctionArgument { get; set; }
+            [Required]
+            [Display(Name = "Security Function Answer")]
+            public double SecurityFunctionAnswer { get; set; }
+            [Required]
 			public string UserName { get; set; }
 
 			/// <summary>
@@ -97,7 +110,10 @@ namespace CyberBezp.Areas.Identity.Pages.Account
 
 			ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-			ReturnUrl = returnUrl;
+            var random = new Random();
+            SecurityFunctionArgument = random.Next(1, 100);
+
+            ReturnUrl = returnUrl;
 		}
 
 		public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -111,13 +127,14 @@ namespace CyberBezp.Areas.Identity.Pages.Account
 				var user = await _signInManager.UserManager.FindByNameAsync(Input.UserName);
 				if (user != null)
 				{
-					// This doesn't count login failures towards account lockout
-					// To enable password failures to trigger account lockout, set lockoutOnFailure: true
-					var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe,
-						lockoutOnFailure: false);
-					if (result.Succeeded)
+                    // This doesn't count login failures towards account lockout
+                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                    var result = await _signInManager.PasswordAndSecurityFunctionSignInAsync(user, Input.Password, Input.SecurityFunctionArgument, Input.SecurityFunctionAnswer, Input.RememberMe,
+                        lockoutOnFailure: true);
+                    if (result.Succeeded)
 					{
 						_logger.LogInformation("User logged in.");
+						_systemLogger.Log("Udane logowanie", $"{user.UserName} zalogowano");
 						return LocalRedirect(returnUrl);
 					}
 

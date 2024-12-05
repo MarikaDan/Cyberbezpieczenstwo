@@ -1,3 +1,4 @@
+using CyberBezp.Areas.Identity.Data;
 using CyberBezp.Data;
 using CyberBezp.Services;
 using CyberBezp.Services.Interfaces;
@@ -18,6 +19,8 @@ namespace CyberBezp
 				.AddSeeder()
 				.AddRepositories()
 				.AddServices();
+
+			builder.Services.AddScoped<ISystemLogger, SystemLogger>();
 
 			builder.Services.AddControllersWithViews();
 

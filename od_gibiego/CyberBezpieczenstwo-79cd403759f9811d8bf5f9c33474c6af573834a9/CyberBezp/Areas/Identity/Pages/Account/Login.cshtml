@@ -23,6 +23,13 @@
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.SecurityFunctionArgument" value="@Model.SecurityFunctionArgument" hidden="true"></input>
+
+                    <input asp-for="Input.SecurityFunctionAnswer" class="form-control" aria-required="true" placeholder="security function answer" type="number" />
+                    <label asp-for="Input.SecurityFunctionAnswer" class="form-label">Security Function for: x @Model.SecurityFunctionArgument</label>
+                    <span asp-validation-for="Input.SecurityFunctionAnswer" class="text-danger"></span>
+                </div>
                 <div class="checkbox mb-3">
                     <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
